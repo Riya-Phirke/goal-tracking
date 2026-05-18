@@ -1,10 +1,8 @@
 from sqlalchemy import (
     Column,
     Integer,
-    Float,
-    ForeignKey,
-    DateTime,
-    String
+    String,
+    DateTime
 )
 
 from datetime import datetime
@@ -12,9 +10,9 @@ from datetime import datetime
 from app.database import Base
 
 
-class GoalAchievement(Base):
+class AuditLog(Base):
 
-    __tablename__ = "goal_achievements"
+    __tablename__ = "audit_logs"
 
     id = Column(
         Integer,
@@ -22,14 +20,17 @@ class GoalAchievement(Base):
         index=True
     )
 
-    goal_id = Column(
-        Integer,
-        ForeignKey("goals.id")
-    )
+    goal_id = Column(Integer)
 
-    achieved_value = Column(Float)
+    action = Column(String)
 
-    quarter = Column(String)
+    field_name = Column(String)
+
+    old_value = Column(String)
+
+    new_value = Column(String)
+
+    changed_by = Column(Integer)
 
     created_at = Column(
         DateTime,
